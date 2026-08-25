@@ -1,3 +1,7 @@
-const username = "parahan";
+const username = "paraparachahan";
+const url = `https://api.github.com/users/${username}/repos`;
 
-console.log(`GitHub User: ${username}`);
+const response = await fetch(url);
+const repositories: unknown = await response.json();
+
+console.log(repositories);
