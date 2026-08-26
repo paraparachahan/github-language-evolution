@@ -4,16 +4,25 @@ type GitHubRepository = {
     fork: boolean;
 };
 
-const username = "paraparachahan";
-const url = `https://api.github.com/users/${username}/repos`;
+async function fetchRepositories(
+    username: string,
+): Promise<GitHubRepository[]> {
+    const url = `https://api.github.com/users/${username}/repos`;
 
-const response = await fetch(url);
+    const response = await fetch(url);
 
-if (!response.ok) {
-    throw new Error(`GitHub API request failed: ${response.status} ${response.statusText}`);
+    if (!response.ok) {
+        throw new Error(`GitHub API request failed: ${response.status} ${response.statusText}`);
+    }
+
+    const repositories = (await response.json()) as GitHubRepository[];
+
+    return repositories;
 }
 
-const repositories = (await response.json()) as GitHubRepository[];
+const username = "paraparachahan";
+
+const repositories = await fetchRepositories(username);
 
 const ownRepositories = repositories.filter(
     repository => !repository.fork
