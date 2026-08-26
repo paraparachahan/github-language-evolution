@@ -1,6 +1,7 @@
 type GitHubRepository = {
     name: string;
     language: string | null;
+    fork: boolean;
 };
 
 const username = "paraparachahan";
@@ -14,7 +15,11 @@ if (!response.ok) {
 
 const repositories = (await response.json()) as GitHubRepository[];
 
-for (const repository of repositories) {
+const ownRepositories = repositories.filter(
+    repository => !repository.fork
+);
+
+for (const repository of ownRepositories) {
     const language = repository.language ?? "Unknown";
     console.log(`${repository.name}: ${language}`);
 }
