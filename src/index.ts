@@ -1,5 +1,6 @@
 type GitHubRepository = {
     name: string;
+    language: string | null;
 };
 
 const username = "paraparachahan";
@@ -9,5 +10,6 @@ const response = await fetch(url);
 const repositories = (await response.json()) as GitHubRepository[];
 
 for (const repository of repositories) {
-    console.log(repository.name);
+    const language = repository.language ?? "Unknown";
+    console.log(`${repository.name}: ${language}`);
 }
