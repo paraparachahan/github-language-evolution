@@ -19,6 +19,12 @@ const ownRepositories = repositories.filter(
     repository => !repository.fork
 );
 
+const excludedForkCount = repositories.length - ownRepositories.length;
+
+console.log(`Public repositories: ${repositories.length}`);
+console.log(`Analyzed repositories: ${ownRepositories.length}`);
+console.log(`Excluded forks: ${excludedForkCount}`);
+
 for (const repository of ownRepositories) {
     const language = repository.language ?? "Unknown";
     console.log(`${repository.name}: ${language}`);
