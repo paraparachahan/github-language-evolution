@@ -6,8 +6,9 @@ type GitHubRepository = {
 
 async function fetchRepositories(
     username: string,
+    perPage: number,
 ): Promise<GitHubRepository[]> {
-    const url = `https://api.github.com/users/${username}/repos`;
+    const url = `https://api.github.com/users/${username}/repos?per_page=${perPage}`;
 
     const response = await fetch(url);
 
@@ -21,8 +22,9 @@ async function fetchRepositories(
 }
 
 const username = "paraparachahan";
+const perPage = 100;
 
-const repositories = await fetchRepositories(username);
+const repositories = await fetchRepositories(username, perPage);
 
 const ownRepositories = repositories.filter(
     repository => !repository.fork
